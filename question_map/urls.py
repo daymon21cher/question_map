@@ -19,10 +19,12 @@ from django.urls import path
 from django.urls import include, path
 from rest_framework import routers
 from main import views
+from main.views import FieldViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'question', views.QuestionViewSet)
+router.register(r'field', views.FieldViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
