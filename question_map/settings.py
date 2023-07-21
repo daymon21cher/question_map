@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+from corsheaders.middleware import CorsMiddleware
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,8 +27,23 @@ SECRET_KEY = 'django-insecure-+-0-!c=kkj7u(#1nx(5kk(piaba0e84a2v*i(-821aezpgq7rb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1:3000',
+    '127.0.0.1:8000',
+    '127.0.0.1',
+    '192.168.1.12:3000',
+    '192.168.1.12',
 
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://192.168.1.12:3000',
+    'https://192.168.1.12:3000',
+    'https://127.0.0.1:3000',
+    'http://127.0.0.1:3000',
+
+
+]
 
 # Application definition
 
@@ -38,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'main',
 ]
 
@@ -47,6 +65,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -133,3 +152,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+SESSION_SAVE_EVERY_REQUEST = True
+

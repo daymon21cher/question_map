@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets, permissions
 
 from rest_framework.decorators import action
@@ -38,15 +39,20 @@ class FieldViewSet(viewsets.ModelViewSet):
     def custom_action(self, request, pk=None):
         instance = self.get_queryset().filter(key=request.session.get('field_key', '')).first()
         if not instance:
+            print(request.session.session_key)
             return Response(status=404)
+        print(request.session.session_key)
         serializer = FieldCustomActionSerializer(instance)
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'])
     def login(self, request):
+        print(request.session.session_key)
         session = request.session
         session['field_key'] = request.data['field_key']
         session.save()
+        print(request.session.session_key)
+        print(request.session['field_key'])
         field = Field.objects.filter(key=session['field_key']).first()
         if not field:
             return Response(status=404)
@@ -54,3 +60,4 @@ class FieldViewSet(viewsets.ModelViewSet):
             field.created_at = timezone.now()
             field.save(update_fields=['created_at'])
         return Response(status=200)
+
