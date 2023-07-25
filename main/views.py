@@ -7,8 +7,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Field
-from .serializers import FieldSerializer, FieldCustomActionSerializer
+from .models import Field, Cell, Answer
+from .serializers import FieldSerializer, FieldCustomActionSerializer, CellSerializer, AnswerSimpleSerializer
 from main.models import Question
 from main.serializers import UserSerializer, QuestionSerializer
 
@@ -28,6 +28,55 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = []
+
+
+class CellViewSet(viewsets.ModelViewSet):
+    queryset = Cell.objects.all()
+    serializer_class = CellSerializer
+    permission_classes = []
+
+    @action(detail=True, methods=['put'])
+    def in_progress(self, request, pk):
+        cell = self.get_object()
+        cell.status = 'IN_PROGRESS'
+        cell.save()
+        Cell.objects.filter(
+            field_id=cell.field_id, status=Cell.CLOSE
+        ).exclude(id=cell.id).update(status=Cell.DISABLED)
+        return Response(status=200)
+
+    @action(detail=True, methods=['post'])
+    def take_answer(self, request, pk):
+        serializer = AnswerSimpleSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        cell = self.get_object()
+        print(serializer.data.get('text'))
+
+        answer = Answer.objects.create(text=serializer.data.get('text'))
+        cell.answer = answer
+        cell.status = Cell.OPEN
+        cell.save()
+        Cell.objects.filter(
+            field_id=cell.field_id, status=Cell.DISABLED
+        ).exclude(id=cell.id).update(status=Cell.CLOSE)
+        if self.check_field(cell.field_id):
+            field = cell.field
+            field.closed_at = timezone.now()
+            field.save()
+            return Response(status=201)
+        return Response(status=200)
+
+    @staticmethod
+    def check_field(field_id):
+        if Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=1).count() == 9:
+            return True
+        if (
+            Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=1).count() == 8 and
+            Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=3).count() == 1
+        ):
+            return True
+        return False
+
 
 
 class FieldViewSet(viewsets.ModelViewSet):
@@ -60,4 +109,5 @@ class FieldViewSet(viewsets.ModelViewSet):
             field.created_at = timezone.now()
             field.save(update_fields=['created_at'])
         return Response(status=200)
+
 

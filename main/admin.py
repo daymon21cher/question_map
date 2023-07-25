@@ -12,8 +12,8 @@ class FieldAdmin(admin.ModelAdmin):
 
 
 class CellAdmin(admin.ModelAdmin):
-    fields = ['field_number', 'status', 'cell_type', 'field', 'question']
-    list_display = ['__str__', 'field', 'status', 'id']
+    fields = ['field_number', 'status', 'cell_type', 'field', 'question', 'answer']
+    list_display = ['__str__', 'field', 'status', 'id', 'answer']
 
 
 class CellTypeAdmin(admin.ModelAdmin):
@@ -25,8 +25,8 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    fields = ['name', 'text', 'image', 'penalty', 'answer']
-    list_display = ['__str__', 'name', 'text', 'answer']
+    fields = ['name', 'text', 'image', 'penalty']
+    list_display = ['__str__', 'name', 'text']
 
 
 admin.site.register(Field, FieldAdmin)

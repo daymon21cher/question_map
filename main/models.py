@@ -6,11 +6,15 @@ from django.utils import timezone
 #Сущность "Cell"
 
 class Cell(models.Model):
+    OPEN = 'OPEN'
+    CLOSE = 'CLOSE'
+    IN_PROGRESS = 'IN_PROGRESS'
+    DISABLED = 'DISABLED'
     STATUS_CHOICES = [
-        ('OPEN', 'Open'),
-        ('CLOSE', 'Close'),
-        ('IN_PROGRESS', 'In Progress'),
-        ('DISABLED', 'Disabled'),
+        (OPEN, 'Open'),
+        (CLOSE, 'Close'),
+        (IN_PROGRESS, 'In Progress'),
+        (DISABLED, 'Disabled'),
     ]
 
     question = models.ForeignKey('Question', on_delete=models.CASCADE, null=True)
@@ -22,6 +26,7 @@ class Cell(models.Model):
     )
     field = models.ForeignKey('Field', on_delete=models.CASCADE)
     cell_type = models.ForeignKey('CellType', on_delete=models.CASCADE)
+    answer = models.OneToOneField('Answer', on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ['field_number']
@@ -38,7 +43,6 @@ class Question(models.Model):
     text = models.TextField(null=True)
     image = models.ImageField(upload_to='question_images/', null=True)
     penalty = models.IntegerField(help_text="Штрафное время в секундах")
-    answer = models.ForeignKey('Answer', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'{self.name}'
