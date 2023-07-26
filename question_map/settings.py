@@ -176,3 +176,6 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8080',  # for localhost (Developlemt)
     'http://127.0.0.1:8080',  # for network (Development)
 ]
+
+STATIC_ROOT = 'static/'
+
