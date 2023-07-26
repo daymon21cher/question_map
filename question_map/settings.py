@@ -44,8 +44,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://192.168.1.12:3000',
     'https://127.0.0.1:3000',
     'http://127.0.0.1:3000',
-    'https://www.tabquest.ru/',
-    'http://www.tabquest.ru/',
+    'https://www.tabquest.ru',
+    'http://www.tabquest.ru',
 
 ]
 
