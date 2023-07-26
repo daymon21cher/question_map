@@ -146,7 +146,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/var/www/tabquest.ru/question_map/static/'
+STATIC_URL = '/var/www/u2162105/data/www/tabquest.ru/question_map/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -177,5 +177,5 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8080',  # for network (Development)
 ]
 
-STATIC_ROOT = '/var/www/tabquest.ru/question_map/static/'
+STATIC_ROOT = '/var/www/u2162105/data/www/tabquest.ru/question_map/static/'
 
