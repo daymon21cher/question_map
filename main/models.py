@@ -43,6 +43,7 @@ class Question(models.Model):
     text = models.TextField(null=True)
     image = models.ImageField(upload_to='question_images/', null=True)
     penalty = models.IntegerField(help_text="Штрафное время в секундах")
+    location = models.TextField(null=True, help_text="Гео локация точки")
 
     def __str__(self):
         return f'{self.name}'
