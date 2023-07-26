@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'question_map.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'question_map',
+        'NAME': 'u2162105_default',
         'USER': 'u2162105_default',
         'PASSWORD': '8san80I6ZXCi9WW7',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
