@@ -32,6 +32,10 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.1.12:3000',
     '192.168.1.12',
+    'www.tabquest.ru',
+    'tabquest.ru',
+    'www.tabquest.ru:8000',
+    'tabquest.ru:8000',
 
 ]
 
@@ -40,6 +44,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://192.168.1.12:3000',
     'https://127.0.0.1:3000',
     'http://127.0.0.1:3000',
+    'https://www.tabquest.ru/',
+    'http://www.tabquest.ru/',
 
 ]
 
