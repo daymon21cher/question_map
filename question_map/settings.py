@@ -46,6 +46,10 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000',
     'https://www.tabquest.ru',
     'http://www.tabquest.ru',
+    'https://www.tabquest.ru:8000',
+    'http://www.tabquest.ru:8000',
+    'http://151.248.116.16:8000',
+    'https://151.248.116.16:8000',
 
 ]
 
