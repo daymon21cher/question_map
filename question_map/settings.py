@@ -36,6 +36,8 @@ ALLOWED_HOSTS = [
     'tabquest.ru',
     'www.tabquest.ru:8000',
     'tabquest.ru:8000',
+    '151.248.116.16:8000',
+    '151.248.116.16',
 
 ]
 
