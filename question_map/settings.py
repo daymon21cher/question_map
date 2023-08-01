@@ -64,7 +64,6 @@ CORS_ALLOWED_ORIGINS = [
     'https://tabquest.ru:8080',
     'http://tabquest.ru:8080',
     'https://tabquest.ru:443',
-    'https://tabquest.ru/api',
 
 
 
