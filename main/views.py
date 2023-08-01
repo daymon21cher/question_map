@@ -51,6 +51,10 @@ class CellViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         cell = self.get_object()
         print(serializer.data.get('text'))
+        user_text = serializer.data.get('text')
+
+        if cell.cell_type_id == 8 and user_text not in cell.question.variants:
+            return Response(status=400, data={'reason': 'Bad Answer'})
 
         answer = Answer.objects.create(text=serializer.data.get('text'))
         cell.answer = answer
@@ -59,6 +63,7 @@ class CellViewSet(viewsets.ModelViewSet):
         Cell.objects.filter(
             field_id=cell.field_id, status=Cell.DISABLED
         ).exclude(id=cell.id).update(status=Cell.CLOSE)
+
         if self.check_field(cell.field_id):
             field = cell.field
             field.closed_at = timezone.now()
@@ -68,15 +73,14 @@ class CellViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def check_field(field_id):
-        if Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=1).count() == 9:
+        if Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=8).count() == 9:
             return True
         if (
-            Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=1).count() == 8 and
-            Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=3).count() == 1
+                Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=8).count() == 8 and
+                Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=3).count() == 1
         ):
             return True
         return False
-
 
 
 class FieldViewSet(viewsets.ModelViewSet):
@@ -109,5 +113,3 @@ class FieldViewSet(viewsets.ModelViewSet):
             field.created_at = timezone.now()
             field.save(update_fields=['created_at'])
         return Response(status=200)
-
-

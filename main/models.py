@@ -44,6 +44,7 @@ class Question(models.Model):
     image = models.ImageField(upload_to='question_images/', null=True)
     penalty = models.IntegerField(help_text="Штрафное время в секундах")
     location = models.TextField(null=True, help_text="Гео локация точки")
+    variants = models.JSONField(default=[], help_text='Варианты ответов')
 
     def __str__(self):
         return f'{self.name}'
