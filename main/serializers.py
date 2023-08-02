@@ -13,7 +13,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('id', 'name', 'text', 'penalty')
+        fields = ('id', 'name', 'text', 'penalty', 'location')
 
 class FieldSerializer(serializers.ModelSerializer):
     class Meta:
