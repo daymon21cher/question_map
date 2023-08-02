@@ -166,7 +166,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -192,10 +192,10 @@ CORS_ALLOW_HEADERS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',  # for localhost (REACT Default)
-    'http://127.0.0.1:3000',  # for network 
+    'http://127.0.0.1:3000',  # for network
     'http://localhost:8080',  # for localhost (Developlemt)
     'http://127.0.0.1:8080',  # for network (Development)
 ]
 
-STATIC_ROOT = '/static/'
+STATIC_ROOT = 'static/'
 
