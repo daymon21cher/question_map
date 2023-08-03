@@ -77,7 +77,7 @@ class CellViewSet(viewsets.ModelViewSet):
             return True
         if (
                 Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=8).count() == 8 and
-                Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=3).count() == 1
+                Cell.objects.filter(field_id=field_id, status=Cell.OPEN, cell_type_id=2).count() == 1
         ):
             return True
         return False
